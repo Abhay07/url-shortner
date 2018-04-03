@@ -53,15 +53,36 @@
     height: 50px;
     vertical-align: top;
     line-height: 50px;
-  }
-  >.url-label {
     border: 1px solid #aaaaaa;
     padding: 0 10px;
     background-color: rgba(230, 230, 230, 0.5);
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
+    position:relative;
+
+    button{
+      position:absolute;
+      right:0;
+      height: 100%;
+      border: 0;
+      background-color: #3f9587;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      width:100px;
+      &:hover{
+        background-color:#1d5f54;
+      }
+      &:focus{
+        outline:none;
+      }
+    }
   }
+}
+
+.hide{
+  opacity:0;
 }
 
 }

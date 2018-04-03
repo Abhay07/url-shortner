@@ -8,24 +8,46 @@ import { GetUrlService } from '../get-url.service'
   providers:[GetUrlService]
 })
 export class UrlElementComponent implements OnInit {
-	readonly urlPattern : string = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9]\.[^\s]{2,})";
+	readonly urlPattern:String  = "^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
 	private shortUrl:String;
   private inProgress: Boolean = false;
+  private copyText:String = "COPY";
 	private shorten = (a,$e)=> {
-
+    this.copyText = "COPY"
     if(this.inProgress)
     return false
+
 
     this.shortUrl = '';
     this.inProgress = true;
 		this.getUrlService.getUrl(a).then(a => {
       this.shortUrl = a['id'];
       this.inProgress = false;
+    }).catch(a=>{
+      this.inProgress = false;
     });
     return false;
 	}
 
-  constructor(private getUrlService : GetUrlService) { }
+  private copy =()=>{
+    this.copyText = "COPIED";
+    const el = (<HTMLInputElement>document.getElementById("copyInput"));
+    el.value = this.shortUrl.toString();
+    el.select();
+    document.execCommand("copy");
+  }
+
+  private blurCopy = ()=>{
+    this.copyText = "COPY";
+
+  }
+
+
+
+  constructor(private getUrlService : GetUrlService) { 
+  console.log(this.urlPattern);
+
+  }
 
   ngOnInit() {
   }

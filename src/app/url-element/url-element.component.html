@@ -10,6 +10,10 @@
   </div>
   <div class="shorten-url-container">
     <div class="label">Result</div>
-    <div class="url-label">{{shortUrl}}</div>
+    <div class="url-label">
+    {{shortUrl}}
+      <button (click)="copy()">{{copyText}}</button>
+    </div>
   </div>
+  <input type="text" value="" class="hide" id="copyInput"/>
 </div>
